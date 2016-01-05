@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       get "/customers/find", to: "customers#find"
       get "/invoice_items/find", to: "invoice_items#find"
       get "/invoices/find", to: "invoices#find"
+      get "/items/find", to: "items#find"
+      get "/merchants/find", to: "merchants#find"
+      get "/transactions/find", to: "transactions#find"
 
       resources :customers, only: [:index, :show], defaults: { format: :json }
       resources :merchants, only: [:index, :show], defaults: { format: :json }
