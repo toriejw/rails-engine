@@ -15,6 +15,10 @@ def load_and_parse_file(url)
   CSV.parse(file, headers: true, quote_char: "|")
 end
 
+def format_currency(number)
+  number[0...-2] + "." + number[-2..-1]
+end
+
 def import_customers
   parsed_file = load_and_parse_file(files_list[:customers])
 
@@ -32,7 +36,7 @@ def import_invoice_items
     InvoiceItem.create!( item_id: row.field("item_id"),
                          invoice_id: row.field("invoice_id"),
                          quantity: row.field("quantity"),
-                         unit_price: row.field("unit_price") )
+                         unit_price: format_currency(row.field("unit_price")) )
   end
   puts "InvoiceItems imported."
 end
@@ -54,7 +58,7 @@ def import_items
   parsed_file.each do |row|
     Item.create!( name: row.field("name"),
                   description: row.field("description"),
-                  unit_price: row.field("unit_price"),
+                  unit_price: format_currency(row.field("unit_price")),
                   merchant_id: row.field("merchant_id") )
   end
   puts "Items imported."
@@ -75,7 +79,6 @@ def import_transactions
   parsed_file.each do |row|
     Transaction.create!( invoice_id: row.field("invoice_id"),
                          credit_card_number: row.field("credit_card_number"),
-                         credit_card_expiration_date: row.field("credit_card_expiration_date"),
                          result: row.field("result") )
   end
   puts "Transactions imported."
