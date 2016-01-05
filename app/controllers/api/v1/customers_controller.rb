@@ -10,18 +10,12 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def find
-    respond_with find_customer(params)
+    respond_with Customer.find_by(customer_params)
   end
 
   private
 
-    def find_customer
-      if params[:id]
-        Customer.find_by(id: params[:id])
-      elsif params[:first_name]
-        Customer.find_by(first_name: params[:first_name])
-      elsif params[:last_name]
-        Customer.find_by(last_name: params[:last_name])
-      end
+    def customer_params
+      params.permit(:id, :first_name, :last_name)
     end
 end

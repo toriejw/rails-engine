@@ -33,10 +33,12 @@ def import_invoice_items
   parsed_file = load_and_parse_file(files_list[:invoice_items])
 
   parsed_file.each do |row|
-    InvoiceItem.create!( item_id: row.field("item_id"),
+    InvoiceItem.create!( item_id:    row.field("item_id"),
                          invoice_id: row.field("invoice_id"),
-                         quantity: row.field("quantity"),
-                         unit_price: format_currency(row.field("unit_price")) )
+                         quantity:   row.field("quantity"),
+                         unit_price: format_currency(row.field("unit_price")),
+                         created_at: row.field("created_at"),
+                         updated_at: row.field("updated_at") )
   end
   puts "InvoiceItems imported."
 end
@@ -47,6 +49,8 @@ def import_invoices
   parsed_file.each do |row|
     Invoice.create!( customer_id: row.field("customer_id"),
                      merchant_id: row.field("merchant_id"),
+                     created_at:  row.field("created_at"),
+                     updated_at:  row.field("updated_at"),
                      status:      row.field("status") )
   end
   puts "Invoices imported."
@@ -58,8 +62,9 @@ def import_items
   parsed_file.each do |row|
     Item.create!( name: row.field("name"),
                   description: row.field("description"),
-                  unit_price: format_currency(row.field("unit_price")),
-                  merchant_id: row.field("merchant_id") )
+                  unit_price:  format_currency(row.field("unit_price")),
+                  merchant_id: row.field("merchant_id"),
+                  created_at:  row.field("created_at") )
   end
   puts "Items imported."
 end
@@ -68,7 +73,9 @@ def import_merchants
   parsed_file = load_and_parse_file(files_list[:merchants])
 
   parsed_file.each do |row|
-    Merchant.create!( name: row.field("name") )
+    Merchant.create!( name:       row.field("name"),
+                      created_at: row.field("created_at"),
+                      updated_at: row.field("updated_at") )
   end
   puts "Merchants imported."
 end
@@ -77,9 +84,9 @@ def import_transactions
   parsed_file = load_and_parse_file(files_list[:transactions])
 
   parsed_file.each do |row|
-    Transaction.create!( invoice_id: row.field("invoice_id"),
+    Transaction.create!( invoice_id:         row.field("invoice_id"),
                          credit_card_number: row.field("credit_card_number"),
-                         result: row.field("result") )
+                         result:             row.field("result") )
   end
   puts "Transactions imported."
 end

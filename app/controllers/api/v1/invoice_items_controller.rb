@@ -10,22 +10,12 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def find
-    respond_with find_invoice_item(params)
+    respond_with InvoiceItem.find_by(invoice_item_params)
   end
 
   private
 
-    def find_invoice_item(params)
-      if params[:id]
-        InvoiceItem.find_by(id: params[:id])
-      elsif params[:item_id]
-        InvoiceItem.find_by(item_id: params[:item_id])
-      elsif params[:invoice_id]
-        InvoiceItem.find_by(invoice_id: params[:invoice_id])
-      elsif params[:quantity]
-        InvoiceItem.find_by(quantity: params[:quantity])
-      elsif params[:unit_price]
-        InvoiceItem.find_by(unit_price: params[:unit_price])
-      end
+    def invoice_item_params
+      params.permit(:id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at)
     end
 end

@@ -10,16 +10,12 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def find
-    respond_with find_merchant(params)
+    respond_with Merchant.find_by(merchant_params)
   end
 
   private
 
-    def find_merchant(params)
-      if params[:id]
-        Merchant.find_by(id: params[:id])
-      elsif params[:name]
-        Merchant.find_by(name: params[:name])
-      end
+    def merchant_params
+      params.permit(:id, :name, :created_at, :updated_at)
     end
 end

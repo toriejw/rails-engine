@@ -10,20 +10,12 @@ class Api::V1::InvoicesController < ApplicationController
   end
 
   def find
-    respond_with find_invoice(params)
+    respond_with Invoice.find_by(invoice_params)
   end
 
   private
 
-    def find_invoice(params)
-      if params[:id]
-        Invoice.find_by(id: params[:id])
-      elsif params[:customer_id]
-        Invoice.find_by(customer_id: params[:customer_id])
-      elsif params[:merchant_id]
-        Invoice.find_by(merchant_id: params[:merchant_id])
-      elsif params[:status]
-        Invoice.find_by(status: params[:status])
-      end
+    def invoice_params
+      params.permit(:id, :customer_id, :merchant_id, :status, :created_at, :updated_at)
     end
 end
