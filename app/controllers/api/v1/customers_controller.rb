@@ -18,8 +18,7 @@ class Api::V1::CustomersController < ApplicationController
   end
 
   def random
-    random_id = Customer.pluck(:id).sample
-    respond_with Customer.find(random_id)
+    respond_with Customer.random
   end
 
   private
