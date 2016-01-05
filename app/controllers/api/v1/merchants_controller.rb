@@ -17,6 +17,11 @@ class Api::V1::MerchantsController < ApplicationController
     respond_with Merchant.where(merchant_params)
   end
 
+  def random
+    random_id = Merchant.pluck(:id).sample
+    respond_with Merchant.find(random_id)
+  end
+
   private
 
     def merchant_params

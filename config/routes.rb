@@ -15,6 +15,13 @@ Rails.application.routes.draw do
       get "/merchants/find_all", to: "merchants#find_all"
       get "/transactions/find_all", to: "transactions#find_all"
 
+      get "/customers/random", to: "customers#random"
+      get "/invoice_items/random", to: "invoice_items#random"
+      get "/invoices/random", to: "invoices#random"
+      get "/items/random", to: "items#random"
+      get "/merchants/random", to: "merchants#random"
+      get "/transactions/random", to: "transactions#random"
+
       resources :customers, only: [:index, :show], defaults: { format: :json }
       resources :merchants, only: [:index, :show], defaults: { format: :json }
       resources :items, only: [:index, :show], defaults: { format: :json }

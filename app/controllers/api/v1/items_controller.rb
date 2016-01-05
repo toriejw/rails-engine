@@ -17,6 +17,11 @@ class Api::V1::ItemsController < ApplicationController
     respond_with Item.where(item_params)
   end
 
+  def random
+    random_id = Item.pluck(:id).sample
+    respond_with Item.find(random_id)
+  end
+
   private
 
     def item_params

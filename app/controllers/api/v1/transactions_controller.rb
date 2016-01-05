@@ -17,9 +17,15 @@ class Api::V1::TransactionsController < ApplicationController
     respond_with Transaction.where(transaction_params)
   end
 
+  def random
+    random_id = Transaction.pluck(:id).sample
+    respond_with Transaction.find(random_id)
+  end
+
   private
 
     def transaction_params
       params.permit(:invoice_id, :credit_card_number, :result, :created_at, :updated_at)
     end
+
 end
