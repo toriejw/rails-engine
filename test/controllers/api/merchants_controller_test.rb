@@ -53,15 +53,13 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   end
 
   test "#merchant_items returns array of all items associated with a merchant" do
-    create_merchant_with_items
-    merchant = Merchant.last
+    merchant = create_merchant_with_items
 
     get :merchant_items, format: :json, id: merchant.id
 
     assert_response :success
     assert_kind_of Array, parsed_response
     assert_equal merchant.items.count, parsed_response.count
-    binding.pry
 
     parsed_response.each do |record|
       assert record["name"]
@@ -71,15 +69,34 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     end
   end
 
-  test "" do
-    # GET /api/v1/merchants/:id/invoices returns a collection of
-    # invoices associated with that merchant from their known orders
+  test "#merchant_invoices returns array of all invoices associated with a merchant" do
+    merchant = create_merchant_with_invoices
+
+    get :merchant_invoices, format: :json, id: merchant.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal merchant.invoices.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["customer_id"]
+      assert record["status"]
+      assert_equal merchant.id, record["merchant_id"]
+    end
   end
 
   def create_merchant_with_items
-    Merchant.create(name: "merchant name")
-    Merchant.last.items << [ Item.create(name: "item name", description: "item description", unit_price: "23.22"),
-                             Item.create(name: "item name", description: "item description", unit_price: "21.22") ]
+    merchant = Merchant.create(name: "merchant name")
+    merchant.items << [ Item.create(name: "item name", description: "item description", unit_price: "23.22"),
+                        Item.create(name: "item name", description: "item description", unit_price: "21.22") ]
+    merchant
+  end
+
+  def create_merchant_with_invoices
+    merchant = Merchant.create(name: "merchant name")
+    merchant.invoices << [ Invoice.create(customer_id: 1, status: "success"),
+                           Invoice.create(customer_id: 1, status: "success") ]
+    merchant
   end
 
   def check_response_hash_for_correct_data
