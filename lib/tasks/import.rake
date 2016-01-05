@@ -12,7 +12,7 @@ end
 
 def load_and_parse_file(url)
   file = open(url)
-  CSV.parse(file, headers: true, quote_char: "|")
+  CSV.parse(file, headers: true, force_quotes: true)
 end
 
 def format_currency(number)

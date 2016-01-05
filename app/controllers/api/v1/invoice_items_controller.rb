@@ -18,6 +18,7 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def random
+    # InvoiceItem.where("RANDOM()")
     random_id = InvoiceItem.pluck(:id).sample
     respond_with InvoiceItem.find(random_id)
   end
