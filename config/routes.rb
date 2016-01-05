@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get "/merchants/random", to: "merchants#random"
       get "/transactions/random", to: "transactions#random"
 
+      get "/merchants/:id/items", to: "merchants#merchant_items"
+
       resources :customers, only: [:index, :show], defaults: { format: :json }
       resources :merchants, only: [:index, :show], defaults: { format: :json }
       resources :items, only: [:index, :show], defaults: { format: :json }
