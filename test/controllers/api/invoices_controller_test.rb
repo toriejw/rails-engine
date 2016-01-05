@@ -93,6 +93,38 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     check_response_hash_for_correct_data
   end
 
+  test "#invoice_transactions returns array of transactions for an invoice" do
+    # GET /api/v1/invoices/:id/transactions returns a collection of associated transactions
+    invoice = create_invoice_and_transactions
+
+    get :invoice_transactions, format: :json, id: invoice.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal invoice.transactions.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["credit_card_number"]
+      assert record["result"]
+      assert_equal invoice.id, record["invoice_id"]
+    end
+  end
+# GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
+# GET /api/v1/invoices/:id/items returns a collection of associated items
+# GET /api/v1/invoices/:id/customer returns the associated customer
+# GET /api/v1/invoices/:id/merchant returns the associated merchant
+
+  def create_invoice
+    Invoice.create(customer_id: 1, merchant_id: 1, status: "success")
+  end
+
+  def create_invoice_and_transactions
+    invoice = create_invoice
+    invoice.transactions << [ Transaction.create(credit_card_number: "1234", result: "success"),
+                              Transaction.create(credit_card_number: "1234", result: "failed") ]
+    invoice
+  end
+
   def check_response_hash_for_correct_data
     assert parsed_response["customer_id"]
     assert parsed_response["merchant_id"]
