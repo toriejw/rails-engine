@@ -3,14 +3,36 @@ class Merchant < ActiveRecord::Base
   has_many :invoices
 
   def favorite_customer
-    customer_count = self.invoices.where(status: "shipped").group(:customer_id).count
-    customer_id = customer_count.max_by { |k,v| v }[0]
+    customer_count = self.invoices
+                         .where(status: "shipped")
+                         .group(:customer_id)
+                         .count
 
+    customer_id = customer_count.max_by { |k,v| v }[0]
     Customer.find(customer_id)
   end
 
   def revenue
-    revenue = self.invoices.joins(:transactions).successful.joins(:invoice_items).where(status: "shipped").sum("quantity * unit_price")
+    revenue = self.invoices
+                  .joins(:transactions)
+                  .successful
+                  .joins(:invoice_items)
+                  .where(status: "shipped")
+                  .sum("quantity * unit_price")
+
+    { "revenue" => revenue }
+  end
+
+  def revenue_for(date)
+    ar_date = Time.zone.parse(date)
+    revenue = self.invoices
+                  .joins(:transactions)
+                  .successful
+                  .joins(:invoice_items)
+                  .where(status: "shipped")
+                  .where(created_at: ar_date)
+                  .sum("quantity * unit_price")
+
     { "revenue" => revenue }
   end
 

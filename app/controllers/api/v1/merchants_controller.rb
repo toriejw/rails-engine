@@ -43,7 +43,11 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def revenue
-    respond_with Merchant.find(params[:id]).revenue
+    if params[:date]
+      respond_with Merchant.find(params[:id]).revenue_for(params[:date])
+    else
+      respond_with Merchant.find(params[:id]).revenue
+    end
   end
 
   private
