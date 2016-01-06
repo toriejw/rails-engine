@@ -145,6 +145,58 @@ class Api::V1::CustomersControllerTest < ActionController::TestCase
     check_response_hash_for_correct_data
   end
 
+  test "#customers_invoices returns an array of invoices for a customer" do
+    # GET /api/v1/customers/:id/invoices returns a collection of associated invoices
+    customer = create_customer_and_invoices
+
+    get :customers_invoices, format: :json, id: customer.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal customer.invoices.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["merchant_id"]
+      assert record["status"]
+      assert_equal customer.id, record["customer_id"]
+    end
+  end
+
+  test "#customers_transactions returns an array of transactions for a customer" do
+    # GET /api/v1/customers/:id/transactions returns a collection of associated transactions
+    customer = create_customer_and_transactions
+
+    get :customers_transactions, format: :json, id: customer.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal customer.transactions.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["invoice_id"]
+      assert record["result"]
+      assert record["credit_card_number"]
+    end
+  end
+
+  def create_customer
+    Customer.create(first_name: "first name", last_name: "last name")
+  end
+
+  def create_customer_and_invoices
+    customer = create_customer
+    customer.invoices << [ Invoice.create(merchant_id: 1, status: "success"),
+                           Invoice.create(merchant_id: 1, status: "success") ]
+    customer
+  end
+
+  def create_customer_and_transactions
+    customer = create_customer
+    customer.transactions << [ Transaction.create(invoice_id: 1, result: "success", credit_card_number: "213"),
+                               Transaction.create(invoice_id: 1, result: "success", credit_card_number: "213") ]
+    customer
+  end
+
   def check_response_hash_for_correct_data
     assert parsed_response["first_name"]
     assert parsed_response["last_name"]
