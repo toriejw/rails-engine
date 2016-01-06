@@ -86,7 +86,6 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
   end
 
   test "#most_revenue returns given number of merchants with the most revenue" do
-    skip
     create_merchants_with_invoices_and_invoice_items
 
     get :most_revenue, format: :json, quantity: 2
@@ -95,12 +94,11 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_kind_of Array, parsed_response
     assert_equal 2, parsed_response.count
 
-    assert_equal "merchant name 3", parsed_response.first["name"]
-    assert_equal "merchant name 2", parsed_response.last["name"]
+    assert_equal "merchant_name_2", parsed_response.first["name"]
+    assert_equal "merchant_name_1", parsed_response.last["name"]
   end
 
   test "#most_items returns given number of merchants with the most items sold" do
-    # GET /api/v1/merchants/most_items?quantity=x returns the top x merchants ranked by total number of items sold
     create_merchants_with_invoices_and_invoice_items
 
     get :most_items, format: :json, quantity: 2
@@ -109,8 +107,8 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_kind_of Array, parsed_response
     assert_equal 2, parsed_response.count
 
-    assert_equal "merchant name", parsed_response.first["name"]
-    assert_equal "merchant name", parsed_response.last["name"]
+    assert_equal "merchant_name_2", parsed_response.first["name"]
+    assert_equal "merchant_name_1", parsed_response.last["name"]
   end
 
   # test "#revenue" do
