@@ -143,12 +143,20 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
       assert record["merchant_id"]
     end
   end
-  #
-  # test "" do
-  #   skip
-  #   # GET /api/v1/invoices/:id/customer returns the associated customer
-  # end
-  #
+
+  test "#invoice_customer the customer for an invoice" do
+    # GET /api/v1/invoices/:id/customer returns the associated customer
+    invoice = create_invoice_and_customer
+
+    get :invoice_customer, format: :json, id: invoice.id
+
+    assert_response :success
+    assert_kind_of Hash, parsed_response
+
+    assert parsed_response["first_name"]
+    assert parsed_response["last_name"]
+  end
+
   # test "" do
   #   skip
   #   # GET /api/v1/invoices/:id/merchant returns the associated merchant
@@ -177,6 +185,11 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     invoice.items << [ Item.create(merchant_id: 1, name: "item name", description: "item description", unit_price: "2.22"),
                        Item.create(merchant_id: 1, name: "item name", description: "item description", unit_price: "1.11") ]
     invoice
+  end
+
+  def create_invoice_and_customer
+    customer = Customer.create(first_name: "first name", last_name: "last name")
+    Invoice.create(customer_id: customer.id, merchant_id: 1, status: "success")
   end
 
   def check_response_hash_for_correct_data
