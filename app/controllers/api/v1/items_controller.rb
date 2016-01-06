@@ -22,6 +22,14 @@ class Api::V1::ItemsController < ApplicationController
     respond_with Item.find(random_id)
   end
 
+  def items_merchant
+    respond_with Item.find(params[:id]).merchant
+  end
+
+  def items_invoice_items
+    respond_with Item.find(params[:id]).invoice_items
+  end
+
   private
 
     def item_params

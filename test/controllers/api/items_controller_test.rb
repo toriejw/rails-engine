@@ -114,6 +114,50 @@ class Api::V1::ItemsControllerTest < ActionController::TestCase
     check_response_hash_for_correct_data
   end
 
+  test "#items_invoice_items" do
+    item = create_item_and_invoice_items
+
+    get :items_invoice_items, format: :json, id: item.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal item.invoice_items.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["invoice_id"]
+      assert record["quantity"]
+      assert record["unit_price"]
+      assert_equal item.id, record["item_id"]
+    end
+  end
+
+  test "#items_merchant" do
+    item = create_item_and_merchant
+
+    get :items_merchant, format: :json, id: item.id
+
+    assert_response :success
+    assert_kind_of Hash, parsed_response
+
+    assert parsed_response["name"]
+  end
+
+  def create_item
+    Item.create(name: "item name", description: "item description", unit_price: "2.22", merchant_id: 1)
+  end
+
+  def create_item_and_invoice_items
+    item = create_item
+    item.invoice_items << [ InvoiceItem.create(invoice_id: 1, quantity: 1, unit_price: "2.22"),
+                            InvoiceItem.create(invoice_id: 1, quantity: 1, unit_price: "1.11") ]
+    item
+  end
+
+  def create_item_and_merchant
+    merchant = Merchant.create(name: "name")
+    Item.create(name: "item name", description: "item description", unit_price: "2.22", merchant_id: merchant.id)
+  end
+
   def check_response_hash_for_correct_data
     assert parsed_response["name"]
     assert parsed_response["description"]
