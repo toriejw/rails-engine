@@ -94,7 +94,6 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
   end
 
   test "#invoice_transactions returns array of transactions for an invoice" do
-    # GET /api/v1/invoices/:id/transactions returns a collection of associated transactions
     invoice = create_invoice_and_transactions
 
     get :invoice_transactions, format: :json, id: invoice.id
@@ -109,10 +108,39 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
       assert_equal invoice.id, record["invoice_id"]
     end
   end
-# GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
-# GET /api/v1/invoices/:id/items returns a collection of associated items
-# GET /api/v1/invoices/:id/customer returns the associated customer
-# GET /api/v1/invoices/:id/merchant returns the associated merchant
+
+  test "#invoice_items returns array of invoice items for an invoice" do
+    # GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
+    invoice = create_invoice_and_invoice_items
+
+    get :invoice_items, format: :json, id: invoice.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal invoice.invoice_items.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["item_id"]
+      assert record["quantity"]
+      assert record["unit_price"]
+      assert_equal invoice.id, record["invoice_id"]
+    end
+  end
+
+  # test "" do
+  #   skip
+  #   # GET /api/v1/invoices/:id/items returns a collection of associated items
+  # end
+  #
+  # test "" do
+  #   skip
+  #   # GET /api/v1/invoices/:id/customer returns the associated customer
+  # end
+  #
+  # test "" do
+  #   skip
+  #   # GET /api/v1/invoices/:id/merchant returns the associated merchant
+  # end
 
   def create_invoice
     Invoice.create(customer_id: 1, merchant_id: 1, status: "success")
@@ -122,6 +150,13 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     invoice = create_invoice
     invoice.transactions << [ Transaction.create(credit_card_number: "1234", result: "success"),
                               Transaction.create(credit_card_number: "1234", result: "failed") ]
+    invoice
+  end
+
+  def create_invoice_and_invoice_items
+    invoice = create_invoice
+    invoice.invoice_items << [ InvoiceItem.create(item_id: 1, quantity: 1, unit_price: "2.22"),
+                               InvoiceItem.create(item_id: 1, quantity: 1, unit_price: "1.11") ]
     invoice
   end
 
