@@ -85,9 +85,18 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     end
   end
 
-  test "#most_revenue" do
+  test "#most_revenue returns given number of merchants with the most revenue" do
     # GET /api/v1/merchants/most_revenue?quantity=x returns the top x merchants ranked by total revenue
+    create_merchants_with_revenues
 
+    get :most_revenue, format: :json, quantity: 2
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal 2, parsed_response.count
+
+    assert_equal "merchant name 3", parsed_response.first["name"]
+    assert_equal "merchant name 2", parsed_response.last["name"]
   end
 
   test "#most_items" do
