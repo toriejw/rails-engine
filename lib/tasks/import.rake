@@ -86,7 +86,9 @@ def import_transactions
   parsed_file.each do |row|
     Transaction.create!( invoice_id:         row.field("invoice_id"),
                          credit_card_number: row.field("credit_card_number"),
-                         result:             row.field("result") )
+                         result:             row.field("result"),
+                         created_at:         row.field("created_at"),
+                         updated_at:         row.field("updated_at") )
   end
   puts "Transactions imported."
 end
