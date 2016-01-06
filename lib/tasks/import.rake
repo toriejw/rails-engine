@@ -24,7 +24,9 @@ def import_customers
 
   parsed_file.each do |row|
     Customer.create!( first_name: row.field("first_name"),
-                      last_name:  row.field("last_name") )
+                      last_name:  row.field("last_name"),
+                      created_at: row.field("created_at"),
+                      updated_at: row.field("updated_at") )
   end
   puts "Customers imported."
 end
@@ -64,7 +66,8 @@ def import_items
                   description: row.field("description"),
                   unit_price:  format_currency(row.field("unit_price")),
                   merchant_id: row.field("merchant_id"),
-                  created_at:  row.field("created_at") )
+                  created_at:  row.field("created_at"),
+                  updated_at:  row.field("updated_at") )
   end
   puts "Items imported."
 end

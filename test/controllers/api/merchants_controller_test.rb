@@ -85,6 +85,23 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     end
   end
 
+  test "#most_revenue" do
+    # GET /api/v1/merchants/most_revenue?quantity=x returns the top x merchants ranked by total revenue
+
+  end
+
+  test "#most_items" do
+    skip
+    # GET /api/v1/merchants/most_items?quantity=x returns the top x merchants ranked by total number of items sold
+
+  end
+
+  test "#revenue" do
+    skip
+    # GET /api/v1/merchants/revenue?date=x returns the total revenue for date x across all merchants
+
+  end
+
   def create_merchant_with_items
     merchant = Merchant.create(name: "merchant name")
     merchant.items << [ Item.create(name: "item name", description: "item description", unit_price: "23.22"),
