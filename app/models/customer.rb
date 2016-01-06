@@ -12,8 +12,11 @@ class Customer < ActiveRecord::Base
   end
 
   def favorite_merchant
-    # returns a merchant where the customer has conducted the most successful transactions
-    merchant_count = self.invoices.where(status: "shipped").group(:merchant_id).count
+    merchant_count = self.invoices
+                         .where(status: "shipped")
+                         .group(:merchant_id)
+                         .count
+
     merchant_id = merchant_count.max_by { |k, v| v }[0]
 
     Merchant.find(merchant_id)

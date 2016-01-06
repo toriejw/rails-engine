@@ -14,27 +14,27 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-01-06T15:20:07-07:00">2016-01-06T15:20:07-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-01-06T15:35:53-07:00">2016-01-06T15:35:53-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">97.09%</span></span>
+    (<span class="covered_percent"><span class="green">98.57%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         1.31
+         1.4
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>36</b> files in total.
-    <b>826</b> relevant lines. 
-    <span class="green"><b>802</b> lines covered</span> and
-    <span class="red"><b>24</b> lines missed </span>
+    <b>838</b> relevant lines. 
+    <span class="green"><b>826</b> lines covered</span> and
+    <span class="red"><b>12</b> lines missed </span>
   </div>
   <table class="file_list">
     <thead>
@@ -132,12 +132,12 @@
       
       <tr>
         <td class="strong"><a href="#a7e60dc2d7da770036f30ea5d305e05779f71f35" class="src_link" title="app/models/customer.rb">app/models/customer.rb</a></td>
-        <td class="red strong">72.73 %</td>
-        <td>21</td>
+        <td class="green strong">100.0 %</td>
+        <td>24</td>
         <td>11</td>
-        <td>8</td>
-        <td>3</td>
-        <td>1.1</td>
+        <td>11</td>
+        <td>0</td>
+        <td>1.5</td>
       </tr>
       
       <tr>
@@ -147,7 +147,7 @@
         <td>8</td>
         <td>8</td>
         <td>0</td>
-        <td>2.1</td>
+        <td>3.4</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>41</td>
         <td>34</td>
         <td>7</td>
-        <td>1.8</td>
+        <td>3.1</td>
       </tr>
       
       <tr>
@@ -353,9 +353,9 @@
       <tr>
         <td class="strong"><a href="#c9bcac729cad4964c2dbfeac7b4a5c789596f3dd" class="src_link" title="test/models/customer_test.rb">test/models/customer_test.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>9</td>
-        <td>5</td>
-        <td>5</td>
+        <td>33</td>
+        <td>19</td>
+        <td>19</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -392,12 +392,12 @@
       
       <tr>
         <td class="strong"><a href="#dcef49effb36f4400a8447390e147653e0a3655a" class="src_link" title="test/models/merchant_test.rb">test/models/merchant_test.rb</a></td>
-        <td class="red strong">40.0 %</td>
-        <td>26</td>
-        <td>15</td>
-        <td>6</td>
-        <td>9</td>
-        <td>0.4</td>
+        <td class="green strong">100.0 %</td>
+        <td>24</td>
+        <td>13</td>
+        <td>13</td>
+        <td>0</td>
+        <td>1.0</td>
       </tr>
       
       <tr>
@@ -2181,11 +2181,11 @@
         <div class="source_table" id="a7e60dc2d7da770036f30ea5d305e05779f71f35">
   <div class="header">
     <h3>app/models/customer.rb</h3>
-    <h4><span class="red">72.73 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
       <b>11</b> relevant lines. 
-      <span class="green"><b>8</b> lines covered</span> and
-      <span class="red"><b>3</b> lines missed.</span>
+      <span class="green"><b>11</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -2276,43 +2276,61 @@
           <code class="ruby">  def favorite_merchant</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    # returns a merchant where the customer has conducted the most successful transactions</code>
+          <code class="ruby">    merchant_count = self.invoices</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="16">
+        <li class="never" data-hits="" data-linenumber="16">
           
           
-          <code class="ruby">    merchant_count = self.invoices.where(status: &quot;shipped&quot;).group(:merchant_id).count</code>
+          <code class="ruby">                         .where(status: &quot;shipped&quot;)</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="17">
+        <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">    merchant_id = merchant_count.max_by { |k, v| v }[0]</code>
+          <code class="ruby">                         .group(:merchant_id)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
           
           
+          <code class="ruby">                         .count</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="19">
+        <li class="covered" data-hits="2" data-linenumber="20">
+          <span class="hits">2</span>
           
+          <code class="ruby">    merchant_id = merchant_count.max_by { |k, v| v }[0]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
           
           <code class="ruby">    Merchant.find(merchant_id)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="20">
+        <li class="never" data-hits="" data-linenumber="23">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="21">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">end</code>
@@ -2384,8 +2402,8 @@
           <code class="ruby">  def self.successful</code>
         </li>
       
-        <li class="covered" data-hits="10" data-linenumber="9">
-          <span class="hits">10</span>
+        <li class="covered" data-hits="20" data-linenumber="9">
+          <span class="hits">20</span>
           
           <code class="ruby">    joins(:transactions).where(&quot;result=?&quot;, &quot;success&quot;)</code>
         </li>
@@ -2630,8 +2648,8 @@
           <code class="ruby">        .where(status: &quot;shipped&quot;)</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="21">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="15" data-linenumber="21">
+          <span class="hits">15</span>
           
           <code class="ruby">        .sum(&quot;quantity * unit_price&quot;)</code>
         </li>
@@ -2756,20 +2774,20 @@
           <code class="ruby">  def self.most_revenue(quantity)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="42">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="42">
+          <span class="hits">3</span>
           
           <code class="ruby">    all_revenues = {}</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="43">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="43">
+          <span class="hits">3</span>
           
           <code class="ruby">    Merchant.find_each do |merchant|</code>
         </li>
       
-        <li class="covered" data-hits="5" data-linenumber="44">
-          <span class="hits">5</span>
+        <li class="covered" data-hits="15" data-linenumber="44">
+          <span class="hits">15</span>
           
           <code class="ruby">      all_revenues[merchant.id] = merchant.total_revenue</code>
         </li>
@@ -2786,8 +2804,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="47">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="47">
+          <span class="hits">3</span>
           
           <code class="ruby">    return_top_merchants_by_revenue(all_revenues, quantity)</code>
         </li>
@@ -2810,26 +2828,26 @@
           <code class="ruby">  def self.return_top_merchants_by_revenue(revenues, quantity)</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="51">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="51">
+          <span class="hits">3</span>
           
           <code class="ruby">    top_merchants = []</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="52">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="52">
+          <span class="hits">3</span>
           
           <code class="ruby">    quantity.to_i.times do</code>
         </li>
       
-        <li class="covered" data-hits="11" data-linenumber="53">
-          <span class="hits">11</span>
+        <li class="covered" data-hits="28" data-linenumber="53">
+          <span class="hits">28</span>
           
           <code class="ruby">      top_id = revenues.max_by { |k, v| v }[0]</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="54">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="5" data-linenumber="54">
+          <span class="hits">5</span>
           
           <code class="ruby">      top_merchants &lt;&lt; Merchant.find(top_id)</code>
         </li>
@@ -2840,8 +2858,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="56">
-          <span class="hits">2</span>
+        <li class="covered" data-hits="5" data-linenumber="56">
+          <span class="hits">5</span>
           
           <code class="ruby">      revenues.delete(top_id)</code>
         </li>
@@ -2858,8 +2876,8 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="59">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="3" data-linenumber="59">
+          <span class="hits">3</span>
           
           <code class="ruby">    top_merchants</code>
         </li>
@@ -9485,8 +9503,8 @@
     <h3>test/models/customer_test.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>5</b> relevant lines. 
-      <span class="green"><b>5</b> lines covered</span> and
+      <b>19</b> relevant lines. 
+      <span class="green"><b>19</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -9543,6 +9561,150 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="9">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="10">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  test &quot;it returns a customer&#39;s favorite merchant&quot; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    create_customer_with_favorite_merchant</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="12">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    favorite_merchant = Customer.last.favorite_merchant</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="14">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="15">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    assert_equal &quot;fave merchant&quot;, favorite_merchant.name</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="16">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="17">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="18">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def create_customer_with_favorite_merchant</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="19">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    not_favorite_merchant = Merchant.create(name: &quot;merchant name&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="20">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    favorite_merchant     = Merchant.create(name: &quot;fave merchant&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="21">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    customer = Customer.create(first_name: &quot;first name&quot;, last_name: &quot;last name&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="23">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="24">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    first_invoice  = Invoice.create(merchant_id: favorite_merchant.id, status: &quot;shipped&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="25">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    second_invoice = Invoice.create(merchant_id: favorite_merchant.id, status: &quot;shipped&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="26">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    third_invoice  = Invoice.create(merchant_id: not_favorite_merchant.id, status: &quot;shipped&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="27">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="28">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    first_invoice.transactions &lt;&lt; Transaction.create(result: &quot;success&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="29">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    second_invoice.transactions &lt;&lt; Transaction.create(result: &quot;success&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="31">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    customer.invoices &lt;&lt; [first_invoice, second_invoice]</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="32">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="33">
           
           
           <code class="ruby">end</code>
@@ -9735,11 +9897,11 @@
         <div class="source_table" id="dcef49effb36f4400a8447390e147653e0a3655a">
   <div class="header">
     <h3>test/models/merchant_test.rb</h3>
-    <h4><span class="red">40.0 %</span> covered</h4>
+    <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>15</b> relevant lines. 
-      <span class="green"><b>6</b> lines covered</span> and
-      <span class="red"><b>9</b> lines missed.</span>
+      <b>13</b> relevant lines. 
+      <span class="green"><b>13</b> lines covered</span> and
+      <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
   
@@ -9773,85 +9935,85 @@
         <li class="covered" data-hits="1" data-linenumber="5">
           <span class="hits">1</span>
           
-          <code class="ruby">    skip</code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="6">
-          
-          
           <code class="ruby">    create_merchants_with_invoices_and_invoice_items</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="7">
+        <li class="never" data-hits="" data-linenumber="6">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="8">
-          
+        <li class="covered" data-hits="1" data-linenumber="7">
+          <span class="hits">1</span>
           
           <code class="ruby">    merchants_with_most_revenue = Merchant.most_revenue(2)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="9">
+        <li class="never" data-hits="" data-linenumber="8">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="10">
-          
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
           
           <code class="ruby">    assert_equal 2, merchants_with_most_revenue.count</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="11">
+        <li class="never" data-hits="" data-linenumber="10">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="12">
+        <li class="covered" data-hits="1" data-linenumber="11">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    assert_equal &quot;merchant name 3&quot;, merchants_with_most_revenue.first[&quot;name&quot;]</code>
+          <code class="ruby">    assert_equal &quot;merchant_name_2&quot;, merchants_with_most_revenue.first[&quot;name&quot;]</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="13">
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    assert_equal &quot;merchant name 2&quot;, merchants_with_most_revenue.last[&quot;name&quot;]</code>
+          <code class="ruby">    assert_equal &quot;merchant_name_1&quot;, merchants_with_most_revenue.last[&quot;name&quot;]</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="14">
+        <li class="never" data-hits="" data-linenumber="13">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="15">
+        <li class="never" data-hits="" data-linenumber="14">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="16">
+        <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
           <code class="ruby">  test &quot;it returns merchants with the most revenue for quantity 1&quot; do</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="17">
+        <li class="covered" data-hits="1" data-linenumber="16">
           <span class="hits">1</span>
           
-          <code class="ruby">    skip</code>
+          <code class="ruby">    create_merchants_with_invoices_and_invoice_items</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="18">
+        <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby">    create_merchants_with_invoices_and_invoice_items</code>
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="18">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    merchants_with_most_revenue = Merchant.most_revenue(1)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="19">
@@ -9860,10 +10022,10 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="20">
+        <li class="covered" data-hits="1" data-linenumber="20">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    merchants_with_most_revenue = Merchant.most_revenue(1)</code>
+          <code class="ruby">    assert_equal 1, merchants_with_most_revenue.count</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
@@ -9872,31 +10034,19 @@
           <code class="ruby"></code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="22">
+        <li class="covered" data-hits="1" data-linenumber="22">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">    assert_equal 1, merchants_with_most_revenue.count</code>
+          <code class="ruby">    assert_equal &quot;merchant_name_2&quot;, merchants_with_most_revenue.first[&quot;name&quot;]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="23">
           
           
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="missed" data-hits="0" data-linenumber="24">
-          
-          
-          <code class="ruby">    assert_equal &quot;merchant name 3&quot;, merchants_with_most_revenue.first[&quot;name&quot;]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="25">
-          
-          
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="26">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
           <code class="ruby">end</code>
