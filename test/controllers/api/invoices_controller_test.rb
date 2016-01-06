@@ -144,8 +144,7 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     end
   end
 
-  test "#invoice_customer the customer for an invoice" do
-    # GET /api/v1/invoices/:id/customer returns the associated customer
+  test "#invoice_customer returns the customer for an invoice" do
     invoice = create_invoice_and_customer
 
     get :invoice_customer, format: :json, id: invoice.id
@@ -157,10 +156,16 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     assert parsed_response["last_name"]
   end
 
-  # test "" do
-  #   skip
-  #   # GET /api/v1/invoices/:id/merchant returns the associated merchant
-  # end
+  test "#invoice_merchant returns the merchant for an invoices" do
+    invoice = create_invoice_and_merchant
+
+    get :invoice_merchant, format: :json, id: invoice.id
+
+    assert_response :success
+    assert_kind_of Hash, parsed_response
+
+    assert parsed_response["name"]
+  end
 
   def create_invoice
     Invoice.create(customer_id: 1, merchant_id: 1, status: "success")
@@ -190,6 +195,11 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
   def create_invoice_and_customer
     customer = Customer.create(first_name: "first name", last_name: "last name")
     Invoice.create(customer_id: customer.id, merchant_id: 1, status: "success")
+  end
+
+  def create_invoice_and_merchant
+    merchant = Merchant.create(name: "merchant name")
+    Invoice.create(customer_id: 1, merchant_id: merchant.id, status: "success")
   end
 
   def check_response_hash_for_correct_data
