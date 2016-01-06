@@ -93,6 +93,24 @@ class Api::V1::TransactionsControllerTest < ActionController::TestCase
     check_response_hash_for_correct_data
   end
 
+  test "#transactions_invoice returns the associated invoice" do
+    transaction = create_transaction_and_invoice
+
+    get :transactions_invoice, format: :json, id: transaction.id
+
+    assert_response :success
+    assert_kind_of Hash, parsed_response
+
+    assert parsed_response["customer_id"]
+    assert parsed_response["merchant_id"]
+    assert parsed_response["status"]
+  end
+
+  def create_transaction_and_invoice
+    invoice = Invoice.create(customer_id: 1, merchant_id: 1, status: "success")
+    Transaction.create(invoice_id: invoice.id, credit_card_number: "12", result: "success")
+  end
+
   def check_response_hash_for_correct_data
     assert parsed_response["invoice_id"]
     assert parsed_response["credit_card_number"]

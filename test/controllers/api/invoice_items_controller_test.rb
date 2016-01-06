@@ -115,7 +115,6 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
   end
 
   test "#invoice_items_invoice returns associated invoice" do
-    # GET /api/v1/invoice_items/:id/invoice returns the associated invoice
     invoice_item = create_invoice_item_and_invoice
 
     get :invoice_items_invoice, format: :json, id: invoice_item.id
@@ -129,7 +128,6 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
   end
 
   test "#invoice_items_item returns associated item" do
-    # GET /api/v1/invoice_items/:id/item returns the associated item
     invoice_item = create_invoice_item_and_item
 
     get :invoice_items_item, format: :json, id: invoice_item.id
