@@ -109,11 +109,10 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     end
   end
 
-  test "#invoice_items returns array of invoice items for an invoice" do
-    # GET /api/v1/invoices/:id/invoice_items returns a collection of associated invoice items
+  test "#invoice_invoice_items returns array of invoice items for an invoice" do
     invoice = create_invoice_and_invoice_items
 
-    get :invoice_items, format: :json, id: invoice.id
+    get :invoice_invoice_items, format: :json, id: invoice.id
 
     assert_response :success
     assert_kind_of Array, parsed_response
@@ -127,10 +126,23 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     end
   end
 
-  # test "" do
-  #   skip
-  #   # GET /api/v1/invoices/:id/items returns a collection of associated items
-  # end
+  test "#invoice_items returns array of items for an invoice" do
+    # GET /api/v1/invoices/:id/items returns a collection of associated items
+    invoice = create_invoice_and_items
+
+    get :invoice_items, format: :json, id: invoice.id
+
+    assert_response :success
+    assert_kind_of Array, parsed_response
+    assert_equal invoice.items.count, parsed_response.count
+
+    parsed_response.each do |record|
+      assert record["name"]
+      assert record["description"]
+      assert record["unit_price"]
+      assert record["merchant_id"]
+    end
+  end
   #
   # test "" do
   #   skip
@@ -157,6 +169,13 @@ class Api::V1::InvoicesControllerTest < ActionController::TestCase
     invoice = create_invoice
     invoice.invoice_items << [ InvoiceItem.create(item_id: 1, quantity: 1, unit_price: "2.22"),
                                InvoiceItem.create(item_id: 1, quantity: 1, unit_price: "1.11") ]
+    invoice
+  end
+
+  def create_invoice_and_items
+    invoice = create_invoice
+    invoice.items << [ Item.create(merchant_id: 1, name: "item name", description: "item description", unit_price: "2.22"),
+                       Item.create(merchant_id: 1, name: "item name", description: "item description", unit_price: "1.11") ]
     invoice
   end
 
