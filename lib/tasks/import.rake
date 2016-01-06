@@ -19,6 +19,10 @@ def format_currency(number)
   number[0...-2] + "." + number[-2..-1]
 end
 
+def format_decimal(number)
+  number.to_i / 100.0
+end
+
 def import_customers
   parsed_file = load_and_parse_file(files_list[:customers])
 
@@ -38,7 +42,7 @@ def import_invoice_items
     InvoiceItem.create!( item_id:    row.field("item_id"),
                          invoice_id: row.field("invoice_id"),
                          quantity:   row.field("quantity"),
-                         unit_price: format_currency(row.field("unit_price")),
+                         unit_price: format_decimal(row.field("unit_price")),
                          created_at: row.field("created_at"),
                          updated_at: row.field("updated_at") )
   end
