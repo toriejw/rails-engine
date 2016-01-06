@@ -114,6 +114,45 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
     check_response_hash_for_correct_data
   end
 
+  test "#invoice_items_invoice returns associated invoice" do
+    # GET /api/v1/invoice_items/:id/invoice returns the associated invoice
+    invoice_item = create_invoice_item_and_invoice
+
+    get :invoice_items_invoice, format: :json, id: invoice_item.id
+
+    assert_response :success
+    assert_kind_of Hash, parsed_response
+
+    assert parsed_response["customer_id"]
+    assert parsed_response["merchant_id"]
+    assert parsed_response["status"]
+  end
+
+  test "#invoice_items_item returns associated item" do
+    # GET /api/v1/invoice_items/:id/item returns the associated item
+    invoice_item = create_invoice_item_and_item
+
+    get :invoice_items_item, format: :json, id: invoice_item.id
+
+    assert_response :success
+    assert_kind_of Hash, parsed_response
+
+    assert parsed_response["name"]
+    assert parsed_response["merchant_id"]
+    assert parsed_response["description"]
+    assert parsed_response["unit_price"]
+  end
+
+  def create_invoice_item_and_invoice
+    invoice = Invoice.create(customer_id: 1, merchant_id: 1, status: "success")
+    InvoiceItem.create(item_id: 1, invoice_id: invoice.id, quantity: 1, unit_price: "1.11")
+  end
+
+  def create_invoice_item_and_item
+    item = Item.create(name: "item name", description: "item description", unit_price: "1.11", merchant_id: 1)
+    InvoiceItem.create(item_id: item.id, invoice_id: 1, quantity: 1, unit_price: "1.11")
+  end
+
   def check_response_hash_for_correct_data
     assert parsed_response["item_id"]
     assert parsed_response["invoice_id"]
