@@ -8,8 +8,8 @@ class MerchantTest < ActiveSupport::TestCase
 
     assert_equal 2, merchants_with_most_revenue.count
 
-    assert_equal "merchant_name_2", merchants_with_most_revenue.first["name"]
-    assert_equal "merchant_name_1", merchants_with_most_revenue.last["name"]
+    assert_equal "merchant name 3", merchants_with_most_revenue.first["name"]
+    assert_equal "merchant name 2", merchants_with_most_revenue.last["name"]
   end
 
   test "it returns merchants with the most revenue for quantity 1" do
@@ -19,6 +19,6 @@ class MerchantTest < ActiveSupport::TestCase
 
     assert_equal 1, merchants_with_most_revenue.count
 
-    assert_equal "merchant_name_2", merchants_with_most_revenue.first["name"]
+    assert_equal "merchant name 3", merchants_with_most_revenue.first["name"]
   end
 end

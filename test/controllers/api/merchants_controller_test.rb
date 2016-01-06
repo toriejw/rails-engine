@@ -94,8 +94,8 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_kind_of Array, parsed_response
     assert_equal 2, parsed_response.count
 
-    assert_equal "merchant_name_2", parsed_response.first["name"]
-    assert_equal "merchant_name_1", parsed_response.last["name"]
+    assert_equal "merchant name 3", parsed_response.first["name"]
+    assert_equal "merchant name 2", parsed_response.last["name"]
   end
 
   test "#most_items returns given number of merchants with the most items sold" do
@@ -107,8 +107,8 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
     assert_kind_of Array, parsed_response
     assert_equal 2, parsed_response.count
 
-    assert_equal "merchant_name_2", parsed_response.first["name"]
-    assert_equal "merchant_name_1", parsed_response.last["name"]
+    assert_equal "merchant name 3", parsed_response.first["name"]
+    assert_equal "merchant name 2", parsed_response.last["name"]
   end
 
   # test "#revenue" do
@@ -119,9 +119,11 @@ class Api::V1::MerchantsControllerTest < ActionController::TestCase
 
   # test "#favorite_customer returns customer with most successful transactions" do
   #   # GET /api/v1/merchants/:id/favorite_customer returns the customer who has conducted the most successful transactions
-  #   merchant = create_merchant_with_invoices_transactions_and_customers
+  #   # merchant = create_merchant_with_invoices_transactions_and_customers
   #
-  #   get :favorite_customer, format: :json, id: merchant.id
+  #   get :favorite_customer, format: :json, id: Merchant.first.id
+  #
+  #   assert_response :success
   # end
   #
   # def create_merchant_with_invoices_transactions_and_customers

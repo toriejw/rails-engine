@@ -39,30 +39,29 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.most_revenue(quantity)
-    all_revenues = {}
+    all_revenues = []
     Merchant.find_each do |merchant|
-      all_revenues[merchant.id] = merchant.total_revenue
+      all_revenues << [merchant.id, merchant.total_revenue]
     end
 
     return_top_merchants_by_revenue(all_revenues, quantity)
   end
 
   def self.return_top_merchants_by_revenue(revenues, quantity)
-    top_merchants = []
-    quantity.to_i.times do
-      top_id = revenues.max_by { |k, v| v }[0]
-      top_merchants << Merchant.find(top_id)
+    sorted_merchants_by_revenue = revenues.sort_by { |pair| pair[1] }.reverse
 
-      revenues.delete(top_id)
+    top_merchants = []
+    quantity.to_i.times do |i|
+      top_merchants << Merchant.find(sorted_merchants_by_revenue[i][0])
     end
 
     top_merchants
   end
 
   def self.most_items(quantity)
-    items_sold_count_by_merchant = {}
+    items_sold_count_by_merchant = []
     Merchant.find_each do |merchant|
-      items_sold_count_by_merchant[merchant.id] = merchant.total_items_sold
+      items_sold_count_by_merchant << [merchant.id, merchant.total_items_sold]
     end
 
     return_top_merchants_by_items_sold(items_sold_count_by_merchant, quantity)
@@ -77,12 +76,11 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.return_top_merchants_by_items_sold(item_counts, quantity)
-    top_merchants = []
-    quantity.to_i.times do
-      top_id = item_counts.max_by { |k, v| v }[0]
-      top_merchants << Merchant.find(top_id)
+    sorted_merchants_by_item_count = item_counts.sort_by { |pair| pair[1] }.reverse
 
-      item_counts.delete(top_id)
+    top_merchants = []
+    quantity.to_i.times do |i|
+      top_merchants << Merchant.find(sorted_merchants_by_item_count[i][0])
     end
 
     top_merchants
