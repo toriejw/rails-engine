@@ -12,15 +12,17 @@ class Merchant < ActiveRecord::Base
     Customer.find(customer_id)
   end
 
-  def revenue
-    revenue = self.invoices
-                  .joins(:transactions)
-                  .successful
-                  .joins(:invoice_items)
-                  .where(status: "shipped")
-                  .sum("quantity * unit_price")
+  def total_revenue
+    self.invoices
+        .joins(:transactions)
+        .successful
+        .joins(:invoice_items)
+        .where(status: "shipped")
+        .sum("quantity * unit_price")
+  end
 
-    { "revenue" => revenue }
+  def revenue
+    { "revenue" => total_revenue }
   end
 
   def revenue_for(date)
@@ -37,37 +39,24 @@ class Merchant < ActiveRecord::Base
   end
 
   def self.most_revenue(quantity)
-    # # merchants = Merchant.joins(invoices: :invoice_items)
-    # merchants = Merchant.all
-    #
-    # all_revenues = {}
-    #
-    # merchants.each do |merchant|
-    #   revenue = 0
-    #
-    #   merchant.invoices.find_each do |invoice|
-    #     invoice.invoice_items.find_each do |item|
-    #       revenue += (item.quantity * item.unit_price.to_f)
-    #     end
-    #   end
-    #
-    #   all_revenues[merchant.id] = revenue
-    # end
-    #
-    # # all_revenues = {}
-    # # Merchant.find_each do |merchant|
-    # #   all_revenues[merchant.id] = merchant.invoices.joins(:invoice_items).sum("quantity * unit_price")
-    # # end
-    #
-    # top_merchants = []
-    # quantity.times do
-    #   top_merchant_id = all_revenues.max_by { |k, v| v }[0]
-    #   top_merchants << Merchant.find(top_merchant_id)
-    #
-    #   all_revenues.delete(top_merchant_id)
-    # end
-    #
-    # top_merchants
+    all_revenues = {}
+    Merchant.find_each do |merchant|
+      all_revenues[merchant.id] = merchant.total_revenue
+    end
+
+    return_top_merchants(all_revenues, quantity)
+  end
+
+  def self.return_top_merchants(revenues, quantity)
+    top_merchants = []
+    quantity.to_i.times do
+      top_id = all_revenues.max_by { |k, v| v }[0]
+      top_merchants << Merchant.find(top_id)
+
+      all_revenues.delete(top_id)
+    end
+    
+    top_merchants
   end
 
   def self.most_items(quantity)

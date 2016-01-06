@@ -49,7 +49,7 @@ class Api::V1::InvoiceItemsControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_kind_of Hash, parsed_response
-    assert_equal unit_price, parsed_response["unit_price"]
+    assert_equal unit_price.to_s, parsed_response["unit_price"]
   end
 
   test "#find returns invidual record when searched by quantity" do

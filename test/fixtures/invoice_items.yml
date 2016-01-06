@@ -4,10 +4,10 @@ one:
   item_id: 1
   invoice_id: 1
   quantity: 1
-  unit_price: MyString
+  unit_price: 1.11
 
 two:
   item_id: 1
   invoice_id: 1
   quantity: 1
-  unit_price: MyString
+  unit_price: 1.11
