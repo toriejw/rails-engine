@@ -2,7 +2,8 @@ require 'test_helper'
 
 class MerchantTest < ActiveSupport::TestCase
   test "it returns merchants with the most revenue for quantity 2" do
-    create_merchants_with_revenues
+    skip
+    create_merchants_with_invoices_and_invoice_items
 
     merchants_with_most_revenue = Merchant.most_revenue(2)
 
@@ -13,7 +14,8 @@ class MerchantTest < ActiveSupport::TestCase
   end
 
   test "it returns merchants with the most revenue for quantity 1" do
-    create_merchants_with_revenues
+    skip
+    create_merchants_with_invoices_and_invoice_items
 
     merchants_with_most_revenue = Merchant.most_revenue(1)
 

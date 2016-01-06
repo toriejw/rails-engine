@@ -4,7 +4,7 @@ require 'rails/test_help'
 require 'minitest/pride'
 
 module MerchantTestCase
-  def create_merchants_with_revenues
+  def create_merchants_with_invoices_and_invoice_items
     3.times do |i|
       merchant = Merchant.create(name: "merchant name #{i+1}")
       invoice_1 = Invoice.create(customer_id: 1, status: "success")
@@ -20,7 +20,7 @@ module MerchantTestCase
     end
   end
 end
-  
+
 class ActiveSupport::TestCase
   include MerchantTestCase
 

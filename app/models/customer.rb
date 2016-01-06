@@ -10,4 +10,9 @@ class Customer < ActiveRecord::Base
   def transactions
     self.invoices.map { |invoice| invoice.transactions }.flatten
   end
+
+  def favorite_merchant
+    # returns a merchant where the customer has conducted the most successful transactions
+    
+  end
 end

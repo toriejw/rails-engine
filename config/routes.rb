@@ -22,9 +22,11 @@ Rails.application.routes.draw do
       get "/merchants/random", to: "merchants#random"
       get "/transactions/random", to: "transactions#random"
 
+      get "/merchants/most_revenue", to: "merchants#most_revenue"
+      get "/merchants/most_items", to: "merchants#most_items"
       get "/merchants/:id/items", to: "merchants#merchant_items"
       get "/merchants/:id/invoices", to: "merchants#merchant_invoices"
-      get "/merchants/most_revenue", to: "merchants#most_revenue"
+      get "/merchants/:id/favorite_customer", to: "merchants#favorite_customer"
 
       get "/invoices/:id/transactions", to: "invoices#invoice_transactions"
       get "/invoices/:id/invoice_items", to: "invoices#invoice_invoice_items"
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
 
       get "/customers/:id/invoices", to: "customers#customers_invoices"
       get "/customers/:id/transactions", to: "customers#customers_transactions"
+      get "/customers/:id/favorite_merchant", to: "customers#favorite_merchant"
 
       resources :customers, only: [:index, :show], defaults: { format: :json }
       resources :merchants, only: [:index, :show], defaults: { format: :json }
