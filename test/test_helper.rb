@@ -24,8 +24,27 @@ module MerchantTestCase
   end
 end
 
+module CustomerTestCase
+  def create_customer_with_favorite_merchant
+    not_favorite_merchant = Merchant.create(name: "merchant name")
+    favorite_merchant     = Merchant.create(name: "fave merchant")
+
+    customer = Customer.create(first_name: "first name", last_name: "last name")
+
+    first_invoice  = Invoice.create(merchant_id: favorite_merchant.id, status: "shipped")
+    second_invoice = Invoice.create(merchant_id: favorite_merchant.id, status: "shipped")
+    third_invoice  = Invoice.create(merchant_id: not_favorite_merchant.id, status: "shipped")
+
+    first_invoice.transactions << Transaction.create(result: "success")
+    second_invoice.transactions << Transaction.create(result: "success")
+
+    customer.invoices << [first_invoice, second_invoice]
+  end
+end
+
 class ActiveSupport::TestCase
   include MerchantTestCase
+  include CustomerTestCase
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all

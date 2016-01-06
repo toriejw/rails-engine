@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-01-06T15:35:53-07:00">2016-01-06T15:35:53-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-01-06T15:46:19-07:00">2016-01-06T15:46:19-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -147,7 +147,7 @@
         <td>8</td>
         <td>8</td>
         <td>0</td>
-        <td>3.4</td>
+        <td>3.5</td>
       </tr>
       
       <tr>
@@ -353,9 +353,9 @@
       <tr>
         <td class="strong"><a href="#c9bcac729cad4964c2dbfeac7b4a5c789596f3dd" class="src_link" title="test/models/customer_test.rb">test/models/customer_test.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>33</td>
-        <td>19</td>
-        <td>19</td>
+        <td>18</td>
+        <td>9</td>
+        <td>9</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -373,9 +373,9 @@
       <tr>
         <td class="strong"><a href="#e6fefd4009d59b6677b46c5d321bb077b5801b16" class="src_link" title="test/models/invoice_test.rb">test/models/invoice_test.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>7</td>
-        <td>2</td>
-        <td>2</td>
+        <td>19</td>
+        <td>12</td>
+        <td>12</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -2402,8 +2402,8 @@
           <code class="ruby">  def self.successful</code>
         </li>
       
-        <li class="covered" data-hits="20" data-linenumber="9">
-          <span class="hits">20</span>
+        <li class="covered" data-hits="21" data-linenumber="9">
+          <span class="hits">21</span>
           
           <code class="ruby">    joins(:transactions).where(&quot;result=?&quot;, &quot;success&quot;)</code>
         </li>
@@ -9503,8 +9503,8 @@
     <h3>test/models/customer_test.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>19</b> relevant lines. 
-      <span class="green"><b>19</b> lines covered</span> and
+      <b>9</b> relevant lines. 
+      <span class="green"><b>9</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -9611,100 +9611,10 @@
         <li class="never" data-hits="" data-linenumber="17">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  </code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="18">
-          <span class="hits">1</span>
-          
-          <code class="ruby">  def create_customer_with_favorite_merchant</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="19">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    not_favorite_merchant = Merchant.create(name: &quot;merchant name&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    favorite_merchant     = Merchant.create(name: &quot;fave merchant&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="21">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="22">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    customer = Customer.create(first_name: &quot;first name&quot;, last_name: &quot;last name&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="24">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    first_invoice  = Invoice.create(merchant_id: favorite_merchant.id, status: &quot;shipped&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="25">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    second_invoice = Invoice.create(merchant_id: favorite_merchant.id, status: &quot;shipped&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="26">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    third_invoice  = Invoice.create(merchant_id: not_favorite_merchant.id, status: &quot;shipped&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="27">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="28">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    first_invoice.transactions &lt;&lt; Transaction.create(result: &quot;success&quot;)</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="29">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    second_invoice.transactions &lt;&lt; Transaction.create(result: &quot;success&quot;)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="31">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    customer.invoices &lt;&lt; [first_invoice, second_invoice]</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="32">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="33">
+        <li class="never" data-hits="" data-linenumber="18">
           
           
           <code class="ruby">end</code>
@@ -9779,8 +9689,8 @@
     <h3>test/models/invoice_test.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>2</b> relevant lines. 
-      <span class="green"><b>2</b> lines covered</span> and
+      <b>12</b> relevant lines. 
+      <span class="green"><b>12</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -9806,25 +9716,97 @@
           <code class="ruby">class InvoiceTest &lt; ActiveSupport::TestCase</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="4">
+        <li class="covered" data-hits="1" data-linenumber="4">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  # test &quot;the truth&quot; do</code>
+          <code class="ruby">  test &quot;it can return only invoices with successful transactions&quot; do</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="5">
+        <li class="covered" data-hits="1" data-linenumber="5">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  #   assert true</code>
+          <code class="ruby">    create_invoices_with_transactions</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="6">
+        <li class="covered" data-hits="1" data-linenumber="6">
+          <span class="hits">1</span>
           
-          
-          <code class="ruby">  # end</code>
+          <code class="ruby">    successful_invoices = Invoice.successful</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="7">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="8">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    assert_equal 1, successful_invoices.count</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="9">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    assert_equal Invoice.first, successful_invoices.first</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="10">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="11">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="12">
+          <span class="hits">1</span>
+          
+          <code class="ruby">  def create_invoices_with_transactions</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="13">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    first_invoice = Invoice.first</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="14">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    second_invoice = Invoice.last</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="15">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    first_invoice.transactions &lt;&lt; Transaction.create(result: &quot;success&quot;)</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="17">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    second_invoice.transactions &lt;&lt; Transaction.create(result: &quot;failed&quot;)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="18">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
           
           
           <code class="ruby">end</code>
