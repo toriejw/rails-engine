@@ -18,8 +18,7 @@ class Api::V1::TransactionsController < ApplicationController
   end
 
   def random
-    random_id = Transaction.pluck(:id).sample
-    respond_with Transaction.find(random_id)
+    respond_with Transaction.order("RANDOM()").first
   end
 
   def transactions_invoice

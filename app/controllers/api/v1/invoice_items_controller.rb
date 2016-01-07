@@ -18,9 +18,6 @@ class Api::V1::InvoiceItemsController < ApplicationController
   end
 
   def random
-    # InvoiceItem.order("RANDOM()").first
-    # random_id = InvoiceItem.pluck(:id).sample
-    # respond_with InvoiceItem.find(random_id)
     respond_with InvoiceItem.order("RANDOM()").first
   end
 

@@ -1,12 +1,6 @@
 require 'test_helper'
 
 class CustomerTest < ActiveSupport::TestCase
-  test "it returns a random record" do
-    random_customer = Customer.random
-
-    assert_equal Customer, random_customer.class
-  end
-
   test "it returns a customer's favorite merchant" do
     create_customer_with_favorite_merchant
 
@@ -14,5 +8,4 @@ class CustomerTest < ActiveSupport::TestCase
 
     assert_equal "fave merchant", favorite_merchant.name
   end
-  
 end

@@ -18,8 +18,7 @@ class Api::V1::MerchantsController < ApplicationController
   end
 
   def random
-    random_id = Merchant.pluck(:id).sample
-    respond_with Merchant.find(random_id)
+    respond_with Merchant.order("RANDOM()").first
   end
 
   def merchant_items
