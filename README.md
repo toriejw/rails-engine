@@ -19,12 +19,12 @@ For example, you can send a GET request to: `localhost:3000/api/v1/merchants/13/
 
 And you should get back:
 
-`{
-  "id": 814,
-  "first_name": "Shannon",
-  "last_name": "Jacobs",
-  "created_at": "2012-03-27T14:57:30.000Z",
-  "updated_at": "2012-03-27T14:57:30.000Z"
+`{  
+  "id": 814,  
+  "first_name": "Shannon",  
+  "last_name": "Jacobs",  
+  "created_at": "2012-03-27T14:57:30.000Z",  
+  "updated_at": "2012-03-27T14:57:30.000Z"  
 }`
 
 Make you sure have PostgreSQL installed and open on your computer.
