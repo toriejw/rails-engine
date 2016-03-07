@@ -8,10 +8,10 @@ This was a project for module 3 at the Turing School. The project outline can be
 
 ## Running Locally
 
-`git clone https://github.com/toriejw/rails-engine.git`  
-`cd rails-engine`  
-`bundle`  
-`rails s`  
+- `git clone https://github.com/toriejw/rails-engine.git`  
+- `cd rails-engine`  
+- `bundle`  
+- `rails s`  
 
 You can then make requests to `localhost:3000` using Postman or a similar service.
 
